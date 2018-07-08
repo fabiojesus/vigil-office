@@ -15,6 +15,10 @@
             <div class="row" id="top">
             </div>
             <div class="row">
+                {{>sideBar}}
+
+                <script src="/javascripts/script.js"></script>
+                
                 <div class="col-sm-3">
                   <li><a href="#">Examinandos</a></li>
                   <li><a href="#">Examinadores</a></li>
@@ -22,10 +26,15 @@
                   <li><a href="#">Unidades Curriculares</a></li>
                   <li><a href="#">Testes</a></li>
                 </div>
+                
+                <!--content-->
                 <div class="col-sm-9" id="content">
                 </div>
               </div>
         </div>
+        <script>
+    saveStorage();
+</script>
         <div class="footer">
             1º
         </div>    
