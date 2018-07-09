@@ -1,0 +1,65 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@font-face {
+  font-family: Bebas;
+  src: url(./BebasNeueRegular.otf); }
+
+body {
+  margin: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+#mainSection {
+    margin-left: 150px; }
+
+#sideBar {
+    overflow: overlay; }
+    #sideBar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 140px;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100vh; }
+    #sideBar li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none; }
+    #sideBar li a.active {
+        background-color: #4CAF50;
+        color: white; }
+    #sideBar li a:hover:not(.active) {
+        background-color: #555;
+        color: white; }
+
+
+#topSideBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: #d9d9d9;
+    border-bottom: 1px solid #bfbfbf; }
+
+#logoSideBar {
+    padding: 0;
+    margin: 0;
+    font-family: Bebas; }
+
+
+th {
+    padding: 10px 0 10px 0;
+    margin-left: 10px;
+    text-align: left;
+    background-color: #71c174;
+    color: white;
+    border: 1px solid #ddd; }
+    
+table {
+    border-collapse: collapse; }
+
+td, th {
+    padding: 8px; }
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; }

@@ -3,7 +3,7 @@ const URL = 'https://vigil-server.herokuapp.com/?query='
 function fetchGet(url , cb) {
     return fetch(URL + escapeHtml(url))
         .then(res => res.json())
-        .then(res => { return res })
+        .then(res => { return cb(res)})
         .catch(err => { return err; })
 }
 
@@ -12,7 +12,7 @@ function fetchPost(url ,cb) {
         method: 'POST'
     })
         .then(res => res.json())
-        .then(res => { return res })
+        .then(res => { return cb(res) })
         .catch(err => { return err; })
 }
 
