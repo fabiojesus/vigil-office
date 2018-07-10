@@ -1,8 +1,10 @@
+var token = "";
+
 window.onload = function () {
     var buttonLogin = document.getElementById("addSubject");
     buttonLogin.addEventListener("click", renderAdd)
 
-    var token = localStorage.getItem("token");
+    token = localStorage.getItem("token");
     var url = '{subjects(token:"' + token + '"){content{id,name,field}}}';
     fetchGet(url, info => handleData(info));
 }
@@ -16,7 +18,7 @@ var dataAdd = {
 }
 
 function handleData(info){
-    buildHtmlTable(info.data.subjects.content, tableSubjects)
+    buildHtmlTable(info.data.subjects.content, tableSubjects, "Subject")
 }
 
 function renderAdd(){
@@ -38,4 +40,17 @@ function addSubject(){
 
 function handleAdd(info){
         
+}
+
+function deleteSubject(id){
+    var url = 'mutation{deleteSubject(token:"' + token + '",id:"' + id + '"){content,code}}';
+    console.log(url)
+    fetchPost(url, info => handleDelete(info));
+}
+
+function handleDelete(info){
+    var code = info.data.deleteSubject.code;
+    console.log(code);
+    if(code == "9310")
+        alert("Impossible to delete, subject as records");
 }

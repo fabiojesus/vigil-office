@@ -1,13 +1,14 @@
-function buildHtmlTable(json, idTable) {
+function buildHtmlTable(json, idTable, deleteFunctionName) {
     var columns = addAllColumnHeaders(json, idTable);
-    
     for (var i = 0; i < json.length; i++) {
         var row$ = $('<tr/>');
         for (var colIndex = 0; colIndex < columns.length; colIndex++) {
             var cellValue = json[i][columns[colIndex]];
+            var id = json[i].id;
             if (cellValue == null) { cellValue = ""; }
             row$.append($('<td/>').html(cellValue));
         }
+        row$.append($('<td/>').html(deleteForm(id, deleteFunctionName)));
         row$.append($('<td/>').html());
         $(idTable).append(row$);
         
@@ -38,4 +39,10 @@ function getValue(o, p) {
         p = p.split('.')
     }
     return p.length ? getValue(o[p.shift()], p) : o;
+}
+
+function deleteForm(id, deleteFunctionName){
+    var a = "" + id;
+    a.trim();
+    return `<button onclick='deleteSubject("${a}")'>Remover</button>`;
 }
