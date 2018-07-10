@@ -44,13 +44,11 @@ function handleAdd(info){
 
 function deleteSubject(id){
     var url = 'mutation{deleteSubject(token:"' + token + '",id:"' + id + '"){content,code}}';
-    console.log(url)
     fetchPost(url, info => handleDelete(info));
 }
 
 function handleDelete(info){
     var code = info.data.deleteSubject.code;
-    console.log(code);
     if(code == "9310")
         alert("Impossible to delete, subject as records");
 }
