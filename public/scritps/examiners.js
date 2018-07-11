@@ -2,11 +2,11 @@ var token = "";
 
 window.onload = function () {
     renderSideBar();
-    var button = document.getElementById("addSubject");
+    var button = document.getElementById("addExaminers");
     button.addEventListener("click", renderAdd)
 
     token = localStorage.getItem("token");
-    var url = '{subjects(token:"' + token + '"){content{id,name,field}}}';
+    var url = '{examiners(token:"' + token + '"){content{id,name,identification}}}';
     fetchGet(url, info => handleData(info));
 }
 var dataAdd = {
@@ -19,7 +19,8 @@ var dataAdd = {
 }
 
 function handleData(info){
-    buildHtmlTable(info.data.subjects.content, tableSubjects, "Examiner")
+    console.log(info)
+    buildHtmlTable(info.data.examiners.content, tableExaminers, "Examiner")
 }
 
 function renderAdd(){
@@ -46,7 +47,7 @@ function handleAdd(info){
 // DELETE
 
 function deleteSubject(id){
-    var url = 'mutation{deleteSubject(token:"' + token + '",id:"' + id + '"){content,code}}';
+    var url = 'mutation{deleteExamier(token:"' + token + '",id:"' + id + '"){content,code}}';
     fetchPost(url, info => handleDelete(info));
 }
 
