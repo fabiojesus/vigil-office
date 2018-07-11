@@ -18,7 +18,8 @@ var dataAdd = {
 }
 
 function handleData(info){
-    buildHtmlTable(info.data.subjects.content, tableSubjects, "Subject")
+    console.log(info)
+    buildHtmlTable(info.data.subjects.content, tableSubjects, "Examiner")
 }
 
 function renderAdd(){
@@ -42,6 +43,8 @@ function handleAdd(info){
         
 }
 
+// DELETE
+
 function deleteSubject(id){
     var url = 'mutation{deleteSubject(token:"' + token + '",id:"' + id + '"){content,code}}';
     fetchPost(url, info => handleDelete(info));
@@ -49,6 +52,20 @@ function deleteSubject(id){
 
 function handleDelete(info){
     var code = info.data.deleteSubject.code;
+    if(code == "9310")
+        alert("Impossible to delete, subject as records");
+}
+
+// EDIT
+
+function editSubject(id){
+    var url = '{subject(token:"' + token + '",id:"' + id + '"){content{name,field}code}}';
+    fetchGet(url, info => handleEdit(info));
+}
+
+function handleEdit(info){
+    var code = info.data.subject.content;
+
     if(code == "9310")
         alert("Impossible to delete, subject as records");
 }

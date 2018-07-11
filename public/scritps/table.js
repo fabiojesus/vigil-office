@@ -1,4 +1,4 @@
-function buildHtmlTable(json, idTable, deleteFunctionName) {
+function buildHtmlTable(json, idTable, functionName) {
     var columns = addAllColumnHeaders(json, idTable);
     for (var i = 0; i < json.length; i++) {
         var row$ = $('<tr/>');
@@ -8,7 +8,7 @@ function buildHtmlTable(json, idTable, deleteFunctionName) {
             if (cellValue == null) { cellValue = ""; }
             row$.append($('<td/>').html(cellValue));
         }
-        row$.append($('<td/>').html(deleteForm(id, deleteFunctionName)));
+        row$.append($('<td/>').html(editForm(id, functionName) + deleteForm(id, functionName)));
         row$.append($('<td/>').html());
         $(idTable).append(row$);
         
@@ -41,8 +41,14 @@ function getValue(o, p) {
     return p.length ? getValue(o[p.shift()], p) : o;
 }
 
-function deleteForm(id, deleteFunctionName){
+function deleteForm(id, functionName){
     var a = "" + id;
     a.trim();
-    return `<button onclick='deleteSubject("${a}")'>Remover</button>`;
+    return `<button onclick='delete${functionName}("${a}")'>Remover</button>`;
+}
+
+function editForm(id, functionName){
+    var a = "" + id;
+    a.trim();
+    return `<button onclick='edit${functionName}("${a}")'>Editar</button>`;
 }
