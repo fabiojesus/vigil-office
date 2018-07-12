@@ -1,35 +1,24 @@
 var token = "";
 
-window.onload = function () {
-    renderSideBar();
-    var button = document.getElementById("addTest");
-    button.addEventListener("click", renderAdd)
+function renderTests() {
+    document.getElementById("mainSection").innerHTML = "";
+    dataAdd = {
+        "action": "tests",
+        "function": "addTest()",
+        "fields": [
+            { "name": "dateStart" },
+            { "name": "dateEnd" },
+            { "name": "dateLimit" },
+            { "name": "subjectId" },
+            { "name": "type" }
+        ]
+    }
 
     token = localStorage.getItem("token");
-    var url = '{tests(token:"' + token + '"){content{year,confirmationDate,dateStart,dateEnd,subjectId,type,active}}}';
-    fetchGet(url, info => handleData(info));
-}
-var dataAdd = {
-    "action": "subjects",
-    "function": "addSubject()",
-    "fields": [
-        { "name": "dateStart" },
-        { "name": "dateEnd" },
-        { "name": "dateLimit" },
-        { "name": "subjectId" },
-        { "name": "type" }
-    ]
+    var url = '{tests(token:"' + token + '"){content{id,year,confirmationDate,dateStart,dateEnd,subjectId,type,active}}}';
+    fetchGet(url, info => handleData(info.data.tests.content, "Test"));
 }
 
-function handleData(info) {
-    console.log(info)
-    buildHtmlTable(info.data.tests.content, tableTests, "Test")
-}
-
-function renderAdd() {
-    var result = Mustache.render(addTemplate, dataAdd);
-    document.getElementById("mainSection").innerHTML = result;
-}
 
 function addSubject() {
     var dateStart = document.getElementById("dateStart").value,
@@ -40,7 +29,7 @@ function addSubject() {
 
     if (name && field) {
         var token = localStorage.getItem("token");
-        var url = 'mutation{registerTest(token:"' + token + '",dateStart:"' + dateStart + '",dateEnd:"' + dateEnd + '",dateLimit:"' + dateLimit + '",subjectId:"' + subjectId + '",type:"'+ type +'"){code}}';
+        var url = 'mutation{registerTest(token:"' + token + '",dateStart:"' + dateStart + '",dateEnd:"' + dateEnd + '",dateLimit:"' + dateLimit + '",subjectId:"' + subjectId + '",type:"' + type + '"){code}}';
         fetchPost(url, info => handleAdd(info));
     }
 

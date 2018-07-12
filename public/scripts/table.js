@@ -1,5 +1,6 @@
-function buildHtmlTable(json, idTable, functionName) {
-    var columns = addAllColumnHeaders(json, idTable);
+function buildHtmlTable(json, idDiv, functionName) {
+    var table$ = document.createElement("TABLE");
+    var columns = addAllColumnHeaders(json, table$);
     for (var i = 0; i < json.length; i++) {
         var row$ = $('<tr/>');
         for (var colIndex = 0; colIndex < columns.length; colIndex++) {
@@ -10,10 +11,10 @@ function buildHtmlTable(json, idTable, functionName) {
         }
         row$.append($('<td/>').html(editForm(id, functionName) + deleteForm(id, functionName)));
         row$.append($('<td/>').html());
-        $(idTable).append(row$);
-        
+        $(table$).append(row$);
     }
-    
+    $(idDiv).append(table$);
+    $(idDiv).append(makeButton());
 }
 
 function addAllColumnHeaders(json, idTable) {
@@ -33,6 +34,16 @@ function addAllColumnHeaders(json, idTable) {
     $(idTable).append(headerTr$);
     return columnSet;
 }
+
+function makeButton(){
+    var button = document.createElement('button');
+    button.innerHTML = 'Adicionar';
+    button.onclick = function(){
+        renderAdd()
+    };
+    return button;
+}
+
 
 function getValue(o, p) {
     if (typeof p === 'string') {

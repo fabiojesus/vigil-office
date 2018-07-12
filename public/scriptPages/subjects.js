@@ -1,30 +1,19 @@
 var token = "";
 
-window.onload = function () {
-    renderSideBar();
-    var button = document.getElementById("addSubject");
-    button.addEventListener("click", renderAdd)
+function renderSubjects() {
+    document.getElementById("mainSection").innerHTML = "";
+    dataAdd = {
+        "action" : "subjects",
+        "function" : "addSubject()",
+        "fields" : [
+            {"name": "Name"},
+            {"name": "Field"}
+        ]
+    }
 
     token = localStorage.getItem("token");
-    var url = '{subjects(token:"' + token + '"){content{id,name,field}}}';
-    fetchGet(url, info => handleData(info));
-}
-var dataAdd = {
-    "action" : "subjects",
-    "function" : "addSubject()",
-    "fields" : [
-        {"name": "Name"},
-        {"name": "Field"}
-    ]
-}
-
-function handleData(info){
-    buildHtmlTable(info.data.subjects.content, tableSubjects, "Examiner")
-}
-
-function renderAdd(){
-    var result = Mustache.render(addTemplate, dataAdd);
-    document.getElementById("mainSection").innerHTML = result;
+    var url = '{subjects(token:"' + token + '"){content{id,name,field}code}}';
+    fetchGet(url, info => handleData(info.data.subjects.content, "Subject"));
 }
 
 function addSubject(){
