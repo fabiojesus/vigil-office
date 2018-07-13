@@ -13,7 +13,7 @@ function renderRooms() {
 
     token = localStorage.getItem("token");
     var url = '{rooms(token:"' + token + '"){content{id,name,seats}code}}';
-    fetchGet(url, info => handleData(info.data.tests.content, "Test"));
+    fetchGet(url, info => handleData(info.data.rooms.content, "Test"));
 }
 
 
@@ -24,12 +24,12 @@ function addRoom() {
     if (name && field) {
         var token = localStorage.getItem("token");
         var url = 'mutation{registerRoom(token:"' + token + '",name:"' + name + '",seats:"' + seats + '"){code}}';
-        fetchPost(url, info => handleAdd(info));
+        fetchPost(url, info => handleAddRoom(info));
     }
 
 }
 
-function handleAdd(info) {
+function handleAddRoom(info) {
 
 }
 
@@ -37,10 +37,10 @@ function handleAdd(info) {
 
 function deleteRoom(id) {
     var url = 'mutation{deleteRoom(token:"' + token + '",id:"' + id + '"){content,code}}';
-    fetchPost(url, info => handleDelete(info));
+    fetchPost(url, info => handleDeleteRoom(info));
 }
 
-function handleDelete(info) {
+function handleDeleteRoom(info) {
     var code = info.data.deleteRoom.code;
     if (code == "9310")
         alert("Impossible to delete, room as records");
@@ -48,12 +48,12 @@ function handleDelete(info) {
 
 // EDIT
 
-function editSubject(id) {
+function editRoom(id) {
     var url = '{subject(token:"' + token + '",id:"' + id + '"){content{name,field}code}}';
-    fetchGet(url, info => handleEdit(info));
+    fetchGet(url, info => handleEditRoom(info));
 }
 
-function handleEdit(info) {
+function handleEditRoom(info) {
     var code = info.data.subject.content;
 
     if (code == "9310")

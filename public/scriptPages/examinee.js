@@ -1,7 +1,7 @@
 var token = "";
 
-function renderExaminers() {
-    document.getElementById("tableContent").innerHTML = "";
+function renderExaminees() {
+    document.getElementById("mainSection").innerHTML = "";
     dataAdd = {
         "action": "subjects",
         "function": "addSubject()",
@@ -20,7 +20,7 @@ function renderExaminers() {
 }
 
 
-function addSubject() {
+function addExaminee() {
     var name = document.getElementById("name").value,
         field = document.getElementById("identification").value,
         email = document.getElementById("email").value,
@@ -30,23 +30,23 @@ function addSubject() {
     if (name && field) {
         var token = localStorage.getItem("token");
         var url = 'mutation{registerExaminee(token:"' + token + '",name:"' + name + '",field:"' + field + '",email:"' + email + '",course:"' + course + '",studentNumber:"' + studentNumber + '"){code}}';
-        fetchPost(url, info => handleAdd(info));
+        fetchPost(url, info => handleAddExaminee(info));
     }
 
 }
 
-function handleAdd(info) {
+function handleAddExaminee(info) {
 
 }
 
 // DELETE
 
-function deleteSubject(id) {
+function deleteExaminee(id) {
     var url = 'mutation{deleteExaminee(token:"' + token + '",id:"' + id + '"){content,code}}';
-    fetchPost(url, info => handleDelete(info));
+    fetchPost(url, info => handleDeleteExaminee(info));
 }
 
-function handleDelete(info) {
+function handleDeleteExaminee(info) {
     var code = info.data.deleteExaminee.code;
     if (code == "9310")
         alert("Impossible to delete, subject as records");
@@ -54,12 +54,13 @@ function handleDelete(info) {
 
 // EDIT
 
-function editSubject(id) {
-    var url = '{subject(token:"' + token + '",id:"' + id + '"){content{name,field}code}}';
-    fetchGet(url, info => handleEdit(info));
+function editExaminee(id) {
+    var name = document.getElementById("name").value;
+    var url = 'mutation{updateExaminee(token:"' + token + '",id:"' + id + '"){content,code}}';
+    fetchGet(url, info => handleEditExaminee(info));
 }
 
-function handleEdit(info) {
+function handleEditExaminee(info) {
     var code = info.data.subject.content;
 
     if (code == "9310")

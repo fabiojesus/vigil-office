@@ -18,6 +18,10 @@ function renderAdd() {
     document.getElementById("mainSection").innerHTML = result;
 }
 
+function renderEdit() {
+    renderAdd();
+}
+
 
 function renderSideBar(){
     var sideBar = 
@@ -36,13 +40,16 @@ function renderSideBar(){
     <a onclick="renderExaminers()">Examiners</a>
 </li>
 <li>
+    <a onclick="renderExaminees()">Examinees</a>
+</li>
+<li>
     <a onclick="renderTests()">Tests</a>
 </li>
 <li>
-    <a onclick="renderRooms()">Tests</a>
+    <a onclick="renderRooms()">Rooms</a>
 </li>
 <li>
-    <a href="./qrcode.html">QRCode</a>
+    <a onclick="renderQrCode()">QRCode</a>
 </li>
 <li>
     <a onclick="logout()">Logout</a>

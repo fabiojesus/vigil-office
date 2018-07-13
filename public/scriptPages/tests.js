@@ -20,7 +20,7 @@ function renderTests() {
 }
 
 
-function addSubject() {
+function addTest() {
     var dateStart = document.getElementById("dateStart").value,
         dateEnd = document.getElementById("dateEnd").value,
         dateLimit = document.getElementById("dateLimit").value,
@@ -30,23 +30,23 @@ function addSubject() {
     if (name && field) {
         var token = localStorage.getItem("token");
         var url = 'mutation{registerTest(token:"' + token + '",dateStart:"' + dateStart + '",dateEnd:"' + dateEnd + '",dateLimit:"' + dateLimit + '",subjectId:"' + subjectId + '",type:"' + type + '"){code}}';
-        fetchPost(url, info => handleAdd(info));
+        fetchPost(url, info => handleAddTest(info));
     }
 
 }
 
-function handleAdd(info) {
+function handleAddTest(info) {
 
 }
 
 // DELETE
 
-function deleteSubject(id) {
+function deleteTest(id) {
     var url = 'mutation{deleteSubject(token:"' + token + '",id:"' + id + '"){content,code}}';
-    fetchPost(url, info => handleDelete(info));
+    fetchPost(url, info => handleDeleteTest(info));
 }
 
-function handleDelete(info) {
+function handleDeleteTest(info) {
     var code = info.data.deleteSubject.code;
     if (code == "9310")
         alert("Impossible to delete, subject as records");
@@ -54,13 +54,13 @@ function handleDelete(info) {
 
 // EDIT
 
-function editSubject(id) {
+function editTest(id) {
     var url = '{subject(token:"' + token + '",id:"' + id + '"){content{name,field}code}}';
-    fetchGet(url, info => handleEdit(info));
+    fetchGet(url, info => handleEditTest(info));
 }
 
-function handleEdit(info) {
-    var code = info.data.subject.content;
+function handleEditTest(info) {
+    var code = info.data.test.content;
 
     if (code == "9310")
         alert("Impossible to delete, subject as records");

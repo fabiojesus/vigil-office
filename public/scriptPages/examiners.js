@@ -1,7 +1,7 @@
 var token = "";
 
 function renderExaminers() {
-    document.getElementById("tableContent").innerHTML = "";
+    document.getElementById("mainSection").innerHTML = "";
     dataAdd = {
         "action": "subjects",
         "function": "addSubject()",
@@ -17,30 +17,30 @@ function renderExaminers() {
 }
 
 
-function addSubject() {
+function addExaminer() {
     var name = document.getElementById("Name").value,
         field = document.getElementById("Field").value;
 
     if (name && field) {
         var token = localStorage.getItem("token");
         var url = 'mutation{registerSubject(token:"' + token + '",name:"' + name + '",field:"' + field + '"){code}}';
-        fetchPost(url, info => handleAdd(info));
+        fetchPost(url, info => handleAddExaminer(info));
     }
 
 }
 
-function handleAdd(info) {
+function handleAddExaminer(info) {
 
 }
 
 // DELETE
 
-function deleteSubject(id) {
+function deleteExaminer(id) {
     var url = 'mutation{deleteExamier(token:"' + token + '",id:"' + id + '"){content,code}}';
-    fetchPost(url, info => handleDelete(info));
+    fetchPost(url, info => handleDeleteExaminer(info));
 }
 
-function handleDelete(info) {
+function handleDeleteExaminer(info) {
     var code = info.data.deleteSubject.code;
     if (code == "9310")
         alert("Impossible to delete, subject as records");
@@ -48,12 +48,12 @@ function handleDelete(info) {
 
 // EDIT
 
-function editSubject(id) {
+function editExaminer(id) {
     var url = '{subject(token:"' + token + '",id:"' + id + '"){content{name,field}code}}';
-    fetchGet(url, info => handleEdit(info));
+    fetchGet(url, info => handleEditExaminer(info));
 }
 
-function handleEdit(info) {
+function handleEditExaminer(info) {
     var code = info.data.subject.content;
 
     if (code == "9310")
